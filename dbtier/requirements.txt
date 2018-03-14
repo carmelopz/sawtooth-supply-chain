@@ -1,2 +1,5 @@
 rethinkdb
+json2html
+pymongo
+Flask
 
