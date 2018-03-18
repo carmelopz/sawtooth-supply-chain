@@ -1,4 +1,86 @@
 
+
+## sawtooth-supply-chain app: carmelopz's basic usage instructions with a db tier example:
+
+### Introduction:
+
+- My Hard specs highlights:
+
+    Intel(R) Core Duo CPU E8500  @ 3.16GHz
+    RAM: 8Gb
+
+- My Soft specs highlights:
+
+    Kernel version 4.15.10-300.fc27.x86_64 (Fedora 27)
+    Docker version 1.13.1
+    docker-compose version 1.17.1
+
+
+### Intructions:
+
+- Go to some directory, such as "/home/user", using any of these commands (all are the same):
+
+```bash
+cd
+cd  ~ 
+cd /home/user
+```
+
+- Use sudo or execute as root, to avoid user rights issues:
+
+```bash
+sudo git clone https://github.com/carmelopz/sawtooth-supply-chain
+cd sawtooth-supply-chain
+sudo docker-compose up
+```
+
+- Wait until the output stops and/or in a new terminal use this to verify that the 10 containers are up:
+
+```bash
+sudo docker ps
+```
+
+- Then, we can see the example FishNet supply chain application running. Using any browser on the host:
+
+http://localhost:8022
+
+- As seen below, I have developed a python program to get access to the database tier, using a new container:
+- Go to this subdirectory of /sawtooth-supply-chain
+
+```bash
+ cd dbtier
+```
+- We build the image from the Dockerfile which also imports the needed libraries in requirements.txt:
+
+```bash
+sudo docker build -t dbtier .
+```
+
+- Then, we run the image as a container. Thanks to the --net=host command, the container can connects with the other containers and be available at the host at the same time, without port conflicts.
+
+```bash
+sudo docker run --net=host dbtier
+```
+
+- We can see the agents record in browser running in the host:
+
+http://localhost:40080
+
+A last note: I have tried this week also to prepare a docker compose with some replicas of the containers, to show how the queries are balance between them. 
+
+Nevertheless, the docker compose yml file of the supply-chain app is in version 2.1, which does not support the "replicas" command and beside this, we have to decide between using the swarm option in docker versus converting the docker-compose.yml to kubernetes, which I think is clearly winning the race versus docker swarm.
+
+I have also tried the open-source converter Kompose:
+
+https://github.com/kubernetes/kompose
+
+In order to translate the sawtooth supply chain yml compose file to kubernetes, but it is not working out of the box.
+So both docker swarm and kubernetes will need me some extra time to test this sawtooth application. 
+
+More details below. Thank you so much for reading this.
+
+--- ooOoo ---
+
 ![Hyperledger Sawtooth](images/sawtooth_logo_light_blue-small.png)
 
 # Sawtooth Supply Chain
