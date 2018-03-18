@@ -1,6 +1,6 @@
 
 
-## sawtooth-supply-chain app: carmelopz's basic usage instructions with a db tier example:
+## Sawtooth-supply-chain app: carmelopz's basic usage instructions with a db tier example:
 
 ### Introduction:
 
@@ -66,9 +66,9 @@ sudo docker run --net=host dbtier
 
 http://localhost:40080
 
-A last note: I have tried this week also to prepare a docker compose with some replicas of the containers, to show how the queries are balance between them. 
+A last note: I have tried also this week to prepare a docker yml compose files adding some replicas of the containers, to show how the queries are balanced between them. 
 
-Nevertheless, the docker compose yml file of the supply-chain app is in version 2.1, which does not support the "replicas" command and beside this, we have to decide between using the swarm option in docker versus converting the docker-compose.yml to kubernetes, which I think is clearly winning the race versus docker swarm.
+Nevertheless, the docker compose yml file of the supply-chain app is in version 2.1, which does not support the "replicas" command and beside this, we have to decide between using the swarm option in docker versus converting the docker-compose.yml to kubernetes, which I think is clearly winning the orchestration topic race versus docker swarm.
 
 I have also tried the open-source converter Kompose:
 
